@@ -1,9 +1,20 @@
 <?php 
 session_start();
 $newPlayer = $_POST["name"];
-    
     array_push($_SESSION["myPlayers"], $newPlayer,);
     $myPlayers = $_SESSION["myPlayers"];
+
+    function delete($del) {
+        unset($del);
+    }
+
+    function update($id) {
+        if (isset($_GET['edit'])) {
+            $id = $_GET['edit'];
+            $update = true;
+            
+        }
+    }
    
 
 
@@ -28,13 +39,17 @@ $newPlayer = $_POST["name"];
     </form>
 <div>
         <ul>
+        <?php  foreach($myPlayers as $player) { ?>
             <li>
-                <?php 
-                
-                foreach($myPlayers as $player) {
-                    echo $player . "<br>";
-                }?>
+                <?php echo $player . "<br>"; ?> 
+                <form action=""></form> 
+                <?php if ($update == true): ?>
+                <a href="script.php?edit=<?php  ?>" class="edit_btn" >Edit</a>
+                <?php else :?>
+                <a href="script.php?del=<?php  ?>" class="del_btn">Delete</a>
+                <?php endif ?>
             </li>
+            <?php } ?>
         </ul>
   
     </div>
